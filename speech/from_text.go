@@ -14,7 +14,7 @@ import (
 func FromText(textIn io.Reader, audioOut io.Writer, lang string) error {
 	input := bufio.NewScanner(textIn)
 	for input.Scan() {
-		audioIn, err := readText(input.Text(), lang)
+		audioIn, err := textToSpeech(input.Text(), lang)
 		if err != nil {
 			return err
 		}
@@ -31,7 +31,7 @@ func FromText(textIn io.Reader, audioOut io.Writer, lang string) error {
 	return nil
 }
 
-func readText(text, lang string) (io.ReadCloser, error) {
+func textToSpeech(text, lang string) (io.ReadCloser, error) {
 	url := fmt.Sprintf("http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=%s&tl=%s", url.QueryEscape(text), lang)
 	response, err := http.Get(url)
 	if err != nil {
