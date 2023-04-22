@@ -1,9 +1,7 @@
 package audio
 
 import (
-	"fmt"
 	"io"
-	"os"
 	"time"
 
 	"github.com/hajimehoshi/go-mp3"
@@ -29,9 +27,7 @@ type Recorder struct {
 }
 
 func (r Recorder) Play(audioIn io.Reader) error {
-	fmt.Fprintln(os.Stderr, "COPYING")
-	n, err := io.Copy(r.audioOut, audioIn)
-	fmt.Fprintf(os.Stderr, "COPIED %d bytes \n", n)
+	_, err := io.Copy(r.audioOut, audioIn)
 	return err
 }
 

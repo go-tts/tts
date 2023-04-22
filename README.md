@@ -33,6 +33,12 @@ tts -l it "Muy bien. Chao." | ffmpeg -i - -filter:a "atempo=1.5" audio_file.mp3
 <h2>Use in your projects</h2>
 
 ```
+import "github.com/go-tts/tts/pkg/speech"
+```
+
+Just import speech package and use it's functions.
+
+```
 audioIn, err := speech.FromText(text, speech.LangEn)
 ```
 ```

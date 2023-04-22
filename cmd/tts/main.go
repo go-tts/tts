@@ -14,7 +14,6 @@ import (
 )
 
 func main() {
-	fmt.Fprintln(os.Stderr, "STARTED")
 	in, player, lang := readParams()
 
 	speech := speech.FromTextStream(in, lang)
@@ -94,7 +93,6 @@ func outputAudioPlayer(outputFile string) audio.Player {
 		if err != nil {
 			exit("sorry, failed to create an output file %q: %s", outputFile, err.Error())
 		}
-		fmt.Fprintf(os.Stderr, "OUTFILE")
 		return audio.NewRecorder(outFile)
 	} else {
 		stdoutStat, err := os.Stdout.Stat()
@@ -102,10 +100,8 @@ func outputAudioPlayer(outputFile string) audio.Player {
 			exit("sorry, failed to check stdout stream: %s", err.Error())
 		}
 		if (stdoutStat.Mode() & os.ModeCharDevice) == os.ModeCharDevice {
-			fmt.Fprintf(os.Stderr, "Speaker")
 			return audio.NewSpeaker()
 		}
 	}
-	fmt.Fprintln(os.Stderr, "STDOUT")
 	return audio.NewRecorder(os.Stdout)
 }
